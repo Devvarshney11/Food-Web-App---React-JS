@@ -1,0 +1,29 @@
+{
+  "name": "food-app",
+  "version": "1.0.0",
+  "description": "It is a food ordering app",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devvarshney11/Food-Web-App---React-JS.git"
+  },
+  "author": "Dev Varshney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devvarshney11/Food-Web-App---React-JS/issues"
+  },
+  "homepage": "https://github.com/Devvarshney11/Food-Web-App---React-JS#readme",
+  "devDependencies": {
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "parcel": "^2.10.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
