@@ -1,4 +1,4 @@
-import {IMG_CDN_URL,restaurantList} from "../config";
+import {IMG_CDN_URL} from "../config";
 const RestaurantCard = ({name,cuisines,cloudinaryImageId,lastMileTravelString}) => (
     <div className="card">
         <img src={IMG_CDN_URL+cloudinaryImageId} />
