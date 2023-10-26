@@ -2,7 +2,6 @@
   "name": "food-app",
   "version": "1.0.0",
   "description": "It is a food ordering app",
- 
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",
@@ -25,6 +24,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
   }
 }

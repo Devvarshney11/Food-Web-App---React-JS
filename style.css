@@ -76,15 +76,24 @@ body
     border-radius: 5px;
     border:1px solid grey
 }
-.shim-text
+.shimmer-card
 {   
-    margin:40px 0;
-    text-align: center;
-    font-size: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width:20%;
+    display: inline-block;
+    margin:10px;
+    background-color: #ccc;
+    height: 200px;
 }
 .no-data-text
 {
     margin:40px 0;
     text-align: center;
     font-size: 50px;
+}
+.links
+{
+    text-decoration: none;
+    color:white;
 }
