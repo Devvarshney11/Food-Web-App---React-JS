@@ -1,17 +1,34 @@
 import RestaurantCard from "./RestaurantCard";
-import { restaurantList } from "../config";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Shrimmer from "./Shrimmer";
 
 function filterData(searchText, restaurant) {
   return restaurant.filter((res) =>
-    res.data.name.toLowerCase().includes(searchText.toLowerCase())
+    res.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
 }
 const Body = () => {
   const [searchText, setSearchText] = useState();
-  const [restaurant, setRestaurant] = useState(restaurantList);
-  const [restaurantOriginal,setRestaurantOriginal] = useState(restaurantList);
-  return (
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  async function getRestaurants() {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=27.91378&lng=78.080016&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const res = await data.json();
+    setRestaurants(
+      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurants(
+      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  }
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+  return restaurants.length === 0 ? (
+    <Shrimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -22,22 +39,32 @@ const Body = () => {
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              let data = filterData(searchText, restaurants);
+              setFilteredRestaurants(data);
+            }
+          }}
         />
-        <button
+        <input
+          type="submit"
           className="search-btn"
           onClick={() => {
-            let data = filterData(searchText, restaurantOriginal);
-            setRestaurant(data);
+            let data = filterData(searchText, restaurants);
+            setFilteredRestaurants(data);
           }}
-        >
-          Search
-        </button>
+          value="Submit"
+        />
       </div>
-      <div className="Restaurant-List">
-        {restaurant.map((restaurant) => (
-          <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-        ))}
-      </div>
+      {filteredRestaurants.length === 0 ? (
+        <div className="no-data-text">No Matched Item Found</div>
+      ) : (
+        <div className="Restaurant-List">
+          {filteredRestaurants.map((restaurant) => (
+            <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

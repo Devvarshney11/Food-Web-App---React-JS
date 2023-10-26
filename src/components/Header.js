@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { LOGO_URL } from "../config";
 const Title = () => (
     <a>
         <img className="logo" src={LOGO_URL}/>
     </a>
 )
-const Header = () => (
-    <div className="header">
+
+const Header = () => {
+    const [islogged,setIsLogged] = useState(false);
+    return <div className="header">
         <Title />
         <div className="nav-items">
             <ul>
@@ -15,6 +18,8 @@ const Header = () => (
                 <li>Cart</li>
             </ul>
         </div>
-    </div>
-)
+        {islogged?<button className="log-btn" onClick={()=> setIsLogged(false)}>Login</button>: 
+        <button className="log-btn" onClick={()=> setIsLogged(true)}>Log Out</button>}
+    </div> 
+}
 export default Header;
