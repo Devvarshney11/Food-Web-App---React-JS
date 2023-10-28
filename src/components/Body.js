@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shrimmer from "./Shrimmer";
+import { Link } from "react-router-dom";
 
 function filterData(searchText, restaurant) {
   return restaurant.filter((res) =>
@@ -61,7 +62,7 @@ const Body = () => {
       ) : (
         <div className="Restaurant-List">
           {filteredRestaurants.map((restaurant) => (
-            <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
+            <Link to={"/restaurants/"+restaurant.info.id} className="card-link" key={restaurant.info.id}><RestaurantCard {...restaurant.info}/></Link>
           ))}
         </div>
       )}
