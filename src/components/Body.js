@@ -4,6 +4,7 @@ import Shrimmer from "./Shrimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
 import useRestaurant from "../utils/useRestaurant";
+import useIsOnline from "../utils/useIsOnline";
 
 const Body = () => {
   const [searchText, setSearchText] = useState();
@@ -13,12 +14,14 @@ const Body = () => {
       let data = filterData(searchText, restaurants);
       setFilteredRestaurants(data);
   }
-  
+  const isOnline = useIsOnline();
+  // console.log(isOnline);
   const restaurants = useRestaurant();
   useEffect(() => {
     setFilteredRestaurants(restaurants);
   }, [restaurants]);
-
+  if(!isOnline) 
+    return <h1>You are offline</h1>;
   return restaurants.length === 0 ? (
     <Shrimmer />
   ) : (
