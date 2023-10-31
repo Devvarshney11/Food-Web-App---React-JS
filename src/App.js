@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {LOGO_URL} from "./config";
+import Shrimmer from "./components/Shrimmer";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import About from "./components/About";
 import Error from "./components/Error";
-import Contact from "./components/Contact";
-import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import {lazy,Suspense} from "react";
+
+
+const About = lazy(()=>import("./components/About"));
+const Contact = lazy(()=>import("./components/Contact"));
+const RestaurantMenu = lazy(()=>import("./components/RestaurantMenu"));
 
 const Footer = () => (
     <h1>Footer</h1>
@@ -33,15 +36,15 @@ const appRouter = createBrowserRouter(
                 },
                 {
                     path:"/about",
-                    element:<About/>
+                    element:<Suspense fallback={<Shrimmer/>}><About/></Suspense>
                 },
                 {
                     path:"/contact",
-                    element:<Contact/>
+                    element:<Suspense fallback={<Shrimmer/>}><Contact/></Suspense>
                 },
                 {
                     path:"/restaurants/:id",
-                    element:<RestaurantMenu/>
+                    element:<Suspense fallback={<Shrimmer/>}><RestaurantMenu/></Suspense>
                 }
             ]
         },

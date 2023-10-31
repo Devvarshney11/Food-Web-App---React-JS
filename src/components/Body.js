@@ -2,31 +2,23 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shrimmer from "./Shrimmer";
 import { Link } from "react-router-dom";
+import { filterData } from "../utils/helper";
+import useRestaurant from "../utils/useRestaurant";
 
-function filterData(searchText, restaurant) {
-  return restaurant.filter((res) =>
-    res.info.name.toLowerCase().includes(searchText.toLowerCase())
-  );
-}
 const Body = () => {
   const [searchText, setSearchText] = useState();
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
-  async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=27.91378&lng=78.080016&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const res = await data.json();
-    setRestaurants(
-      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurants(
-      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+  const dataSetter = () =>
+  {
+      let data = filterData(searchText, restaurants);
+      setFilteredRestaurants(data);
   }
+  
+  const restaurants = useRestaurant();
   useEffect(() => {
-    getRestaurants();
-  }, []);
+    setFilteredRestaurants(restaurants);
+  }, [restaurants]);
+
   return restaurants.length === 0 ? (
     <Shrimmer />
   ) : (
@@ -41,9 +33,8 @@ const Body = () => {
             setSearchText(e.target.value);
           }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              let data = filterData(searchText, restaurants);
-              setFilteredRestaurants(data);
+            if (e.key === "Enter") {
+                dataSetter();
             }
           }}
         />
@@ -51,8 +42,7 @@ const Body = () => {
           type="submit"
           className="search-btn"
           onClick={() => {
-            let data = filterData(searchText, restaurants);
-            setFilteredRestaurants(data);
+              dataSetter();
           }}
           value="Submit"
         />
@@ -62,7 +52,13 @@ const Body = () => {
       ) : (
         <div className="Restaurant-List">
           {filteredRestaurants.map((restaurant) => (
-            <Link to={"/restaurants/"+restaurant.info.id} className="card-link" key={restaurant.info.id}><RestaurantCard {...restaurant.info}/></Link>
+            <Link
+              to={"/restaurants/" + restaurant.info.id}
+              className="card-link"
+              key={restaurant.info.id}
+            >
+              <RestaurantCard {...restaurant.info} />
+            </Link>
           ))}
         </div>
       )}
