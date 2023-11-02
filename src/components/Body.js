@@ -9,19 +9,21 @@ import useIsOnline from "../utils/useIsOnline";
 const Body = () => {
   const [searchText, setSearchText] = useState();
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const dataSetter = () =>
-  {
-      let data = filterData(searchText, restaurants);
-      setFilteredRestaurants(data);
-  }
-  const isOnline = useIsOnline();
-  // console.log(isOnline);
+  const dataSetter = () => {
+    let data = filterData(searchText, restaurants);
+    setFilteredRestaurants(data);
+  };
+  // const isOnline = useIsOnline();
+  // // console.log(isOnline);
   const restaurants = useRestaurant();
   useEffect(() => {
     setFilteredRestaurants(restaurants);
   }, [restaurants]);
-  if(!isOnline) 
-    return <h1>You are offline</h1>;
+
+  // if (!isOnline) {
+  //   return <h1>You are offline</h1>;
+  // }
+
   return restaurants.length === 0 ? (
     <Shrimmer />
   ) : (
@@ -37,7 +39,7 @@ const Body = () => {
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-                dataSetter();
+              dataSetter();
             }
           }}
         />
@@ -45,7 +47,7 @@ const Body = () => {
           type="submit"
           className="search-btn"
           onClick={() => {
-              dataSetter();
+            dataSetter();
           }}
           value="Submit"
         />
