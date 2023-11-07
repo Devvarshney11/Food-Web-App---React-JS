@@ -13,25 +13,22 @@ const Body = () => {
     let data = filterData(searchText, restaurants);
     setFilteredRestaurants(data);
   };
-  // const isOnline = useIsOnline();
-  // // console.log(isOnline);
+  const isOnline = useIsOnline();
   const restaurants = useRestaurant();
   useEffect(() => {
     setFilteredRestaurants(restaurants);
   }, [restaurants]);
-
-  // if (!isOnline) {
-  //   return <h1>You are offline</h1>;
-  // }
-
+  if (!isOnline) {
+    return <h1>You are offline</h1>
+  }
   return restaurants.length === 0 ? (
     <Shrimmer />
   ) : (
     <>
-      <div className="search-container">
+      <div className="flex justify-center">
         <input
           type="text"
-          className="search-input"
+          className="m-3 border-slate-950 box-border text-black py-2 px-9 rounded-md"
           placeholder="Search"
           value={searchText}
           onChange={(e) => {
@@ -45,7 +42,7 @@ const Body = () => {
         />
         <input
           type="submit"
-          className="search-btn"
+          className="p-2 border"
           onClick={() => {
             dataSetter();
           }}

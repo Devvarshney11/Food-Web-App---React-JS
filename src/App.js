@@ -11,6 +11,7 @@ import {lazy,Suspense} from "react";
 const About = lazy(()=>import("./components/About"));
 const Contact = lazy(()=>import("./components/Contact"));
 const RestaurantMenu = lazy(()=>import("./components/RestaurantMenu"));
+const Mart = lazy(()=>import("./components/Mart"));
 
 const Footer = () => (
     <h1>Footer</h1>
@@ -45,6 +46,10 @@ const appRouter = createBrowserRouter(
                 {
                     path:"/restaurants/:id",
                     element:<Suspense fallback={<Shrimmer/>}><RestaurantMenu/></Suspense>
+                },
+                {
+                    path:"/mart",
+                    element:<Suspense fallback={<Shrimmer/>}><Mart/></Suspense>
                 }
             ]
         },
