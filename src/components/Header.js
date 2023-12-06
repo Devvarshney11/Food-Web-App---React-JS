@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { LOGO_URL } from "../config";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-
+import { useSelector } from "react-redux";
 const Title = () => (
   <a>
     <img className="logo" src={LOGO_URL} />
@@ -12,6 +12,7 @@ const Header = () => {
 
   const [islogged, setIsLogged] = useState(false);
   const {user} = useContext(UserContext);
+  const cart = useSelector(store => store.cart.items);
   return (
     <div className="flex items-center justify-between bg-black">
       <Title />
@@ -35,6 +36,11 @@ const Header = () => {
           <li className="p-3">
             <Link className="text-white" to="/mart">
               Mart
+            </Link>
+          </li>
+          <li className="p-3">
+            <Link className="text-white" to="/cart">
+              Cart-{cart.length}items
             </Link>
           </li>
         </ul>

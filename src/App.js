@@ -6,8 +6,10 @@ import Body from "./components/Body";
 import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import {lazy,Suspense} from "react";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
-
+const Cart = lazy(()=>import("./components/Cart"));
 const About = lazy(()=>import("./components/About"));
 const Contact = lazy(()=>import("./components/Contact"));
 const RestaurantMenu = lazy(()=>import("./components/RestaurantMenu"));
@@ -18,11 +20,11 @@ const Footer = () => (
 )
 
 const AppLayout = () => (
-    <>
+    <Provider store = {store}>
         <Header />
         <Outlet />
         <Footer />
-    </>
+    </Provider>
 )
 const appRouter = createBrowserRouter(
     [
@@ -50,6 +52,10 @@ const appRouter = createBrowserRouter(
                 {
                     path:"/mart",
                     element:<Suspense fallback={<Shrimmer/>}><Mart/></Suspense>
+                },
+                {
+                    path:"/cart",
+                    element:<Suspense fallback={<Shrimmer/>}><Cart/></Suspense>
                 }
             ]
         },
