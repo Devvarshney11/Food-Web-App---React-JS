@@ -7,7 +7,9 @@ import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import {lazy,Suspense} from "react";
 import { Provider } from "react-redux";
+import Login from "./components/Login";
 import store from "./utils/store";
+import { Navigate } from "react-router-dom";
 
 const Cart = lazy(()=>import("./components/Cart"));
 const About = lazy(()=>import("./components/About"));
@@ -18,7 +20,8 @@ const Mart = lazy(()=>import("./components/Mart"));
 const Footer = () => (
     <h1>Footer</h1>
 )
-
+const isAuth = localStorage.getItem("isAuth");
+console.log(isAuth);
 const AppLayout = () => (
     <Provider store = {store}>
         <Header />
@@ -35,27 +38,31 @@ const appRouter = createBrowserRouter(
             children:[
                 {
                     path:"/",
-                    element:<Body/>
+                    element: isAuth === "Dev" ?<Body/>:<Navigate to="/login"/>
                 },
                 {
                     path:"/about",
-                    element:<Suspense fallback={<Shrimmer/>}><About/></Suspense>
+                    element:isAuth === "Dev" ?<Suspense fallback={<Shrimmer/>}><About/></Suspense>:<Navigate to="/login"/>
                 },
                 {
                     path:"/contact",
-                    element:<Suspense fallback={<Shrimmer/>}><Contact/></Suspense>
+                    element:isAuth === "Dev" ?<Suspense fallback={<Shrimmer/>}><Contact/></Suspense>:<Navigate to="/login"/>
                 },
                 {
                     path:"/restaurants/:id",
-                    element:<Suspense fallback={<Shrimmer/>}><RestaurantMenu/></Suspense>
+                    element:isAuth === "Dev" ?<Suspense fallback={<Shrimmer/>}><RestaurantMenu/></Suspense>:<Navigate to="/login"/>
                 },
                 {
                     path:"/mart",
-                    element:<Suspense fallback={<Shrimmer/>}><Mart/></Suspense>
+                    element:isAuth === "Dev" ?<Suspense fallback={<Shrimmer/>}><Mart/></Suspense>:<Navigate to="/login"/>
                 },
                 {
                     path:"/cart",
-                    element:<Suspense fallback={<Shrimmer/>}><Cart/></Suspense>
+                    element:isAuth === "Dev" ?<Suspense fallback={<Shrimmer/>}><Cart/></Suspense>:<Navigate to="/login"/>
+                },
+                {
+                    path:"/login",
+                    element:isAuth === "Dev"?<Navigate to="/"/>:<Login/>
                 }
             ]
         },

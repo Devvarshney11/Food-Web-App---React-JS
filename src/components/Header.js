@@ -10,7 +10,7 @@ const Title = () => (
 );
 const Header = () => {
 
-  const [islogged, setIsLogged] = useState(false);
+  const [islogged, setIsLogged] = useState(localStorage.getItem("isAuth"));
   const {user} = useContext(UserContext);
   const cart = useSelector(store => store.cart.items);
   return (
@@ -45,30 +45,33 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      {islogged ? (
+      {islogged === "Dev" ? (
+        <div className="flex w-1/5">
+          <div className="text-white">
+            <h3>Welcome {user.name}</h3>
+          </div>
+          <button
+            className="bg-black p-3 m-3 inline text-white border border-gray-50 w-28 rounded-md"
+            onClick={() => {
+              localStorage.removeItem("isAuth");
+              localStorage.setItem("isAuth", "temp");
+              setIsLogged(localStorage.getItem("isAuth"));
+              window.location.replace("/login");
+            }}
+          >
+            Log Out
+          </button>
+        </div>
+      ):(
         <div className="w-1/5 flex justify-end">
           <button
           className="bg-black p-3 m-3 inline-block text-white border border-gray-50 w-28 rounded-md"
           onClick={() => {
-            return setIsLogged(false);
+            window.location.replace("/login");
           }}
         >
           Login
         </button>
-        </div>
-      ) : (
-        <div className="flex w-1/5">
-          <div className="text-white">
-            <h3>{user.name}</h3>
-            <h3>{user.email}</h3>
-            <h3>{user.phone}</h3>
-          </div>
-          <button
-            className="bg-black p-3 m-3 inline text-white border border-gray-50 w-28 rounded-md"
-            onClick={() => setIsLogged(true)}
-          >
-            Log Out
-          </button>
         </div>
       )}
     </div>

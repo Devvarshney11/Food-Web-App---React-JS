@@ -21,7 +21,7 @@ const Body = () => {
   if (!isOnline) {
     return <h1>You are offline</h1>
   }
-  return restaurants.length === 0 ? (
+  return restaurants?.length === 0 ? (
     <Shrimmer />
   ) : (
     <>
@@ -49,11 +49,11 @@ const Body = () => {
           value="Submit"
         />
       </div>
-      {filteredRestaurants.length === 0 ? (
+      {filteredRestaurants?.length === 0 ? (
         <div className="no-data-text">No Matched Item Found</div>
       ) : (
         <div className="Restaurant-List">
-          {filteredRestaurants.map((restaurant) => (
+          {filteredRestaurants?.map((restaurant) => (
             <Link
               to={"/restaurants/" + restaurant.info.id}
               className="card-link"
