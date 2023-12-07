@@ -5,7 +5,7 @@ const userSlice = createSlice({
     initialState:{
         user:{
             name:"Dev Varshney",
-            email:"devvarshney11@gmail.com",
+            email:"abc@gmail.com",
             password:"123456",
             phone:"9368015704",
         },
