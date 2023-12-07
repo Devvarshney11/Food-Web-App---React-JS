@@ -46,7 +46,7 @@ const Header = () => {
         </ul>
       </div>
       {islogged === "Dev" ? (
-        <div className="flex w-1/5">
+        <div className="flex w-1/5 items-center">
           <div className="text-white">
             <h3>Welcome {user.name}</h3>
           </div>

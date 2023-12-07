@@ -28,7 +28,7 @@ const Body = () => {
       <div className="flex justify-center">
         <input
           type="text"
-          className="m-3 border-slate-950 box-border text-black py-2 px-9 rounded-md"
+          className="p-2 my-4 mx-2 border-black border-2 rounded-md"
           placeholder="Search"
           value={searchText}
           onChange={(e) => {
@@ -42,7 +42,7 @@ const Body = () => {
         />
         <input
           type="submit"
-          className="p-2 border"
+          className="p-2 my-4 mx-2 border-black border-2 rounded-md bg-black text-white"
           onClick={() => {
             dataSetter();
           }}
