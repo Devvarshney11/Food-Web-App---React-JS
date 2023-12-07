@@ -3,6 +3,7 @@ import { LOGO_URL } from "../config";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 const Title = () => (
   <a>
     <img className="logo" src={LOGO_URL} />
@@ -56,7 +57,7 @@ const Header = () => {
               localStorage.removeItem("isAuth");
               localStorage.setItem("isAuth", "temp");
               setIsLogged(localStorage.getItem("isAuth"));
-              window.location.replace("/login");
+              <Navigate to="/login" />;
             }}
           >
             Log Out
@@ -67,7 +68,7 @@ const Header = () => {
           <button
           className="bg-black p-3 m-3 inline-block text-white border border-gray-50 w-28 rounded-md"
           onClick={() => {
-            window.location.replace("/login");
+            <Navigate to="/login" />;
           }}
         >
           Login
