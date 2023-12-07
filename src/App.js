@@ -10,16 +10,13 @@ import { Provider } from "react-redux";
 import Login from "./components/Login";
 import store from "./utils/store";
 import { Navigate } from "react-router-dom";
-
+import Footer from "./components/Footer";
 const Cart = lazy(()=>import("./components/Cart"));
 const About = lazy(()=>import("./components/About"));
 const Contact = lazy(()=>import("./components/Contact"));
 const RestaurantMenu = lazy(()=>import("./components/RestaurantMenu"));
 const Mart = lazy(()=>import("./components/Mart"));
 
-const Footer = () => (
-    <h1>Footer</h1>
-)
 const isAuth = localStorage.getItem("isAuth");
 console.log(isAuth);
 const AppLayout = () => (
