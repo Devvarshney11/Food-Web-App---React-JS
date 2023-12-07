@@ -26,7 +26,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="py-2 px-4 m-2 rounded-xl"
+            className="py-2 px-4 m-2 rounded-xl focus:outline-none"
             type="password"
             placeholder="Password"
             value={password}
